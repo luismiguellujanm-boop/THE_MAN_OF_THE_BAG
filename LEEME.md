@@ -1,69 +1,63 @@
-# The Man of the Bag · Juegos (versión PWA 1.0)
+# The Man of the Bag · Juegos (versión 2.0)
 
-Suite de juegos del canal de YouTube **@the_man_of_the_bag**. Se juega en el navegador de la PC (con teclado) y del celular (con gestos), y se puede instalar como app.
+Suite de juegos del canal de YouTube **@the_man_of_the_bag**. Funciona en el navegador (PC con teclado, celular con gestos) y se instala como app (PWA).
 
-## Qué incluye esta versión
+## Novedades de la versión 2.0
 
-- **Menú de la suite:** Escape de las cabras (jugable), y Carrera tóxica, Raise TMB y Música de TMB marcados como "Muy pronto".
-- **Escape de las cabras:**
-  - Tutorial en la primera partida, con la manito en el celular o con las teclas en la PC.
-  - Barra tóxica, eructo tóxico, rayo mutante y la pandilla de bolsitas.
-  - Pausa y fin de partida con récord.
-  - Ranking mundial y botón para compartir.
-- **Apodos:** solo apodos, sin datos personales. No permite apodos repetidos ni groserías.
-- **Sin internet:** funciona sin conexión y sube el récord cuando vuelve el internet.
-- **Ajustes:** música, sonidos, cambiar apodo y volver a ver el tutorial.
+**Escape de las cabras**
+- **5 mundos × 10 niveles:** La granja, El pueblo, El basurero, La fábrica tóxica y El balde tóxico.
+  - 3 dificultades por nivel: Normal, Difícil y Tóxico.
+  - 3 estrellas por nivel: llegar a la meta, juntar las gotas y no recibir golpes.
+  - El nivel 10 de cada mundo es contra la **cabra jefa**.
+- **Modo infinito** por mundo, que se abre al pasar el nivel 10.
+- **Estampida de frente** (se esquiva con doble salto) y **cabra loca** que viene rebotando.
+- **Bomba apestosa hacia atrás** (deslizar ← o tecla ←/A), que marea a la manada. El rayo se mantiene.
+- **Manada de cabras** detrás de TMB: mientras más cerca están, más se ven.
+- **Menos texto en pantalla:** avisan la voz y los íconos.
+- **TMB corre mirando hacia adelante** y voltea a la pantalla cuando habla o agarra una bolsita.
+- **El meme de tu hijo** aparece cuando pierdes.
+- **Carrera en vivo:** salas con código, de 2 a 6 jugadores, fantasmas, cajas sorpresa, gana el último en pie.
+
+**Carrera tóxica** (vertical): TMB cae por el tubo y juntas gotas.
+- Paracaídas: tocar la pantalla o Espacio.
+- La píldora tóxica lo convierte en **Bebé TMB** para pasar por los huecos chicos.
+
+**Suite**
+- **Vestidor y tienda** compartidos por todos los juegos: aspectos de bolsa, cabeza, espalda, vehículo (patineta, scooter) y estelas.
+- **Premios:** cofre diario con racha (el día 7 da un diamante 💎) y 3 misiones del día.
+- **Vitrina:** 18 medallas y los trofeos del top 3 mundial (Bolsa de Oro, Plata y Bronce).
+- **Ranking mundial con podio:** score total de niveles, cada modo infinito y la Carrera tóxica.
 
 ## Controles
 
 | Acción | Teclado | Celular |
 |---|---|---|
 | Saltar (dos veces = doble salto) | Espacio, ↑ o W | Tocar |
-| Agacharse | ↓ o S (mantener) | Deslizar hacia abajo |
-| Lanzar poder | →, D o Enter | Deslizar hacia adelante |
+| Agacharse | ↓ o S | Deslizar hacia abajo |
+| Eructo / rayo (adelante) | →, D o Enter | Deslizar hacia adelante |
+| Bomba apestosa (atrás, barra llena) | ← o A | Deslizar hacia atrás |
+| Carrera tóxica: moverse | ← → o A D | Arrastrar el dedo |
+| Carrera tóxica: paracaídas | Espacio o ↑ | Tocar |
 | Pausa | P o Esc | Botón ⏸ |
 
-## Estructura
+## Publicar la actualización (GitHub)
 
-```
-www/                  ← el juego (esto es lo que se publica)
-  index.html, manifest.webmanifest, sw.js
-  css/style.css
-  js/config.js        ← URL y clave pública de Supabase
-  js/core.js          ← guardado local + conexión con Supabase
-  js/audio.js         ← voces, efectos y música
-  js/escape.js        ← Escape de las cabras
-  js/main.js          ← menús, apodo, ranking, fin de partida
-  img/                ← dibujos generados con fuentes/
-  sfx/                ← voces y sonidos del creador
-supabase/01_ranking.sql   ← ya ejecutado en Supabase
-fuentes/              ← scripts que generan los dibujos (Python + rsvg-convert)
-.github/workflows/publicar.yml  ← publica www/ en GitHub Pages
-```
+1. **Supabase:** en el **SQL Editor**, ejecuta `supabase/02_niveles.sql`. El `01` ya lo tienes.
+2. **Supabase Realtime** (para la carrera en vivo): en **Project Settings → Realtime**, revisa que estén permitidos los canales públicos. No debe estar activado "Private channels only".
+3. **GitHub:** en tu repositorio, ve a **Add file → Upload files** y arrastra **el contenido** de esta carpeta (`www`, `supabase`, `fuentes` y `LEEME.md`). Son menos de 100 archivos. Luego presiona **Commit changes**.
+4. La publicación se hace sola. Revisa en **Actions** que salga ✅.
 
-## Publicar en GitHub Pages (una sola vez)
-
-1. Crea un repositorio en GitHub, por ejemplo `tmb-juegos`, y sube todo el contenido de esta carpeta, incluida la carpeta oculta `.github`.
-2. En el repositorio, ve a **Settings → Pages → Build and deployment → Source** y elige **GitHub Actions**.
-3. Ve a la pestaña **Actions**. Verás "Publicar juego en GitHub Pages" en marcha. Cuando termine con ✅, el juego queda en `https://TU-USUARIO.github.io/tmb-juegos/`.
-4. Desde ese momento, cada cambio que subas a `main` se publica solo.
-
-Para Netlify (cuando tengas créditos): arrastra la carpeta `www/` al panel de Netlify, o conecta el repositorio con el directorio de publicación `www`.
-
-## Instalar como app
-
-- **Android (Chrome):** abre el enlace, toca el menú ⋮ y luego **Instalar app** o **Agregar a la pantalla principal**. Se abre en pantalla completa y en horizontal.
-- **iPhone (Safari):** botón Compartir → **Agregar a inicio**.
-- **PC (Chrome o Edge):** ícono de instalar en la barra de direcciones.
+Los jugadores reciben la versión nueva al volver a abrir el juego, porque el service worker ya tiene `VERSION = "tmb-v2.0.0"`.
 
 ## Cuando hagas cambios
 
-- Si agregas o quitas archivos en `www/`, ejecuta `python3 fuentes/generar_sw.py`.
-- Sube el número de `VERSION` en `www/sw.js`, por ejemplo `tmb-v1.0.1`. Así los jugadores reciben la versión nueva.
+- Si cambias los dibujos, ejecuta `python3 fuentes/sprites2.py www/img`, luego `python3 fuentes/empaquetar_sprites.py` y luego `python3 fuentes/generar_sw.py`.
+- Sube el número de `VERSION` en `www/sw.js`.
+- **Agregar un mundo nuevo** (cuando voten los seguidores): se agrega en `www/js/data.js` (WORLDS) y se dibujan sus fondos en `sprites2.py`.
 
 ## Voces que faltan
 
-Pon cada archivo en `www/sfx/` con estos nombres y el juego los usa solo, sin tocar el código. Mientras tanto suena un reemplazo.
+Pon cada archivo en `www/sfx/` con estos nombres y el juego los usa solo. Mientras tanto suena un reemplazo.
 
 | Frase | Archivo |
 |---|---|
@@ -74,18 +68,29 @@ Pon cada archivo en `www/sfx/` con estos nombres y el juego los usa solo, sin to
 | ¡Nooo, me atraparon! | `13_me_atraparon.mp3` |
 | ¡Nuevo récord! | `14_nuevo_record.mp3` |
 | ¡Otra vez! | `15_otra_vez.mp3` |
-| ¡Presiona espacio para saltar! (tutorial en PC) | `19_presiona_espacio.mp3` |
+| ¡Me encojo! | `16_me_encojo.mp3` |
+| ¡Abro el paracaídas! | `17_abro_paracaidas.mp3` |
+| ¡Aaaaah! (caída) | `18_aaah_caida.mp3` |
+| ¡Presiona espacio para saltar! | `19_presiona_espacio.mp3` |
+| ¡Se acercan las cabras! | `20_se_acercan_las_cabras.mp3` |
+| ¡Doble salto! | `21_doble_salto.mp3` |
+| ¡Cabra loca! | `22_cabra_loca.mp3` |
+| ¡Bomba apestosa! | `23_bomba_apestosa.mp3` |
+| ¡Nivel superado! | `24_nivel_superado.mp3` |
 
 Después de agregarlos, ejecuta `generar_sw.py` y sube la `VERSION`.
+
+## Probar la carrera en vivo sin internet
+
+Abre el juego con `?local=1` al final de la dirección, en dos pestañas del mismo navegador.
 
 ## Supabase
 
 - Proyecto: `https://bsvcnwjqfnfurbteednh.supabase.co`. La clave pública está en `www/js/config.js`.
-- **Nunca** pongas la clave secreta (`sb_secret_…`) en el juego.
-- Para borrar a un tramposo: **Table Editor → puntajes**, borra su fila.
-- Para bloquear más palabras en los apodos: **Table Editor → palabras_prohibidas**, agrega una fila.
+- **Nunca** pongas la clave secreta en el juego.
+- Para borrar a un tramposo: **Table Editor**, en `puntajes` o `niveles`.
+- Para bloquear palabras en los apodos: agrégalas en `palabras_prohibidas`.
 
-## Más adelante
+## Todavía guardado en el teléfono (no en la nube)
 
-- **APK:** el mismo código se empaqueta con Capacitor en GitHub Actions.
-- **Siguientes juegos:** Carrera tóxica, la carrera en vivo con Supabase Realtime, Raise TMB, Música de TMB y la tienda de bolsas.
+El progreso de niveles, las gotas, los diamantes, el vestidor y las medallas se guardan en el dispositivo. Si se borran los datos del navegador, se pierden. Los récords del ranking sí quedan en Supabase.

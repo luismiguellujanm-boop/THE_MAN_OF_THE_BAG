@@ -17,6 +17,9 @@
     eructo: ["11_eructo_toxico", null], rayo: ["12_rayo_mutante", null],
     atrapado: ["13_me_atraparon", "grito_extra"], record: ["14_nuevo_record", "~tada"],
     otra_vez: ["15_otra_vez", "02_a_correr"],
+    me_encojo: ["16_me_encojo", "~puf"], paracaidas: ["17_abro_paracaidas", "~pop"], caida: ["18_aaah_caida", "grito_extra"],
+    se_acercan: ["20_se_acercan_las_cabras", "06_aaah_las_cabras"], doble_salto: ["21_doble_salto", null],
+    cabra_loca: ["22_cabra_loca", "~beee"], bomba: ["23_bomba_apestosa", null], nivel: ["24_nivel_superado", "~tada"],
   };
   const OPCIONALES = Object.values(VOCES).map((v) => v[0]).filter((f) => !FILES.includes(f));
 
@@ -45,7 +48,9 @@
   };
 
   // Una sola voz a la vez (la nueva corta a la anterior)
+  A.onSay = null;
   A.say = function (key) {
+    if (A.onSay) A.onSay(key);
     const v = VOCES[key]; if (!v) return;
     const file = A.buf[v[0]] ? v[0] : v[1];
     if (!file) return;
@@ -90,6 +95,12 @@
       case "click": tone("square", 700, 500, 0.05, 0.08); break;
       case "falta": tone("square", 200, 140, 0.18, 0.1); break;
       case "pierde": tone("triangle", 600, 200, 0.3, 0.2); break;
+      case "bomba": noise(0.9, 0.7, 400); tone("sawtooth", 90, 40, 0.8, 0.25); tone("square", 180, 60, 0.5, 0.08, 0.1); break;
+      case "puf": noise(0.25, 0.35, 2500); tone("sine", 800, 300, 0.2, 0.15); break;
+      case "estrella": [880, 1175, 1568].forEach((f, i) => tone("triangle", f, f, 0.18, 0.15, i * 0.08)); break;
+      case "caja": [523, 784, 659, 1046].forEach((f, i) => tone("square", f, f, 0.1, 0.08, i * 0.06)); break;
+      case "meme": tone("sawtooth", 400, 90, 0.9, 0.18); tone("square", 300, 70, 0.9, 0.06, 0.05); break;
+      case "cofre": [392, 523, 659, 784, 1046].forEach((f, i) => tone("triangle", f, f, 0.2, 0.15, i * 0.09)); break;
     }
   };
 
@@ -99,6 +110,9 @@
     // Persecución: La menor, rápida
     cabras: { bpm: 152, lead: [69,72,76,72, 69,72,76,79, 77,76,74,72, 71,72,74,76, 69,72,76,72, 69,72,76,81, 79,77,76,74, 76,0,0,0],
               bass: [45,45,45,45, 40,40,40,40, 41,41,41,41, 43,43,43,43, 45,45,45,45, 40,40,40,40, 41,41,43,43, 45,45,40,40] },
+    // Caída: misteriosa
+    caida: { bpm: 132, lead: [64,0,67,71, 72,71,67,0, 64,0,67,71, 74,72,71,0, 62,0,65,69, 71,69,65,0, 64,67,71,76, 75,0,0,0],
+             bass: [40,0,40,0, 40,0,40,0, 36,0,36,0, 36,0,36,0, 38,0,38,0, 38,0,38,0, 40,0,40,0, 39,0,39,0] },
     // Menú: Do mayor, alegre
     menu: { bpm: 112, lead: [72,76,79,76, 77,81,79,0, 76,79,84,79, 81,79,76,0, 74,77,81,77, 79,83,79,0, 84,79,76,79, 72,0,0,0],
             bass: [48,0,55,0, 53,0,55,0, 48,0,55,0, 53,0,52,0, 50,0,57,0, 55,0,55,0, 48,0,55,0, 48,0,48,0] },
