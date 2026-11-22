@@ -1,0 +1,16 @@
+{
+  "name": "The Man of the Bag · Juegos",
+  "short_name": "TMB Juegos",
+  "description": "La suite de juegos del canal de YouTube The Man of the Bag",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#2b145a",
+  "theme_color": "#2b145a",
+  "icons": [
+    { "src": "img/icono_192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "img/icono_512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

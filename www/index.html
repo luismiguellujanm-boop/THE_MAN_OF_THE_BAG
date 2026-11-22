@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>The Man of the Bag · Juegos</title>
+<meta name="description" content="La suite de juegos del canal de YouTube The Man of the Bag">
+<meta name="theme-color" content="#2b145a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="img/icono_192.png">
+<link rel="apple-touch-icon" href="img/icono_192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="stage">
+  <canvas id="game"></canvas>
+
+  <!-- 1. Toca para empezar -->
+  <section id="s-splash" class="screen bg-suite">
+    <div class="splash-box">
+      <h1 class="title big">THE MAN<br>OF THE BAG</h1>
+      <p class="title sub green">· JUEGOS ·</p>
+      <button class="btn green pulse" id="b-start">TOCA PARA EMPEZAR</button>
+      <p class="tiny" id="splash-load">Cargando…</p>
+    </div>
+  </section>
+
+  <!-- 2. Apodo -->
+  <section id="s-apodo" class="screen bg-suite">
+    <div class="panel apodo">
+      <h2 class="title">¿CÓMO TE LLAMAN?</h2>
+      <p class="hint">Escribe un <b>apodo</b>. Nunca tu nombre real.</p>
+      <input id="i-apodo" maxlength="14" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ej: Bolsín">
+      <p class="msg" id="apodo-msg"></p>
+      <div class="row">
+        <button class="btn purple" id="b-dado">🎲 INVENTAR UNO</button>
+        <button class="btn green" id="b-apodo-ok">¡LISTO!</button>
+      </div>
+      <p class="tiny">De 3 a 14 letras o números · Solo apodos · Sin chat</p>
+    </div>
+  </section>
+
+  <!-- 3. Menú de la suite -->
+  <section id="s-suite" class="screen bg-suite">
+    <header class="topbar">
+      <div class="chip" id="chip-apodo">👤 <span id="t-apodo">—</span></div>
+      <div class="chip green-chip">💧 <span id="t-gotas">0</span></div>
+      <button class="icon-btn" id="b-ajustes" aria-label="Ajustes">⚙️</button>
+    </header>
+    <h1 class="title suite-title">THE MAN OF THE BAG</h1>
+    <div class="cards">
+      <button class="card c-escape" id="c-escape"><span class="card-emoji">🐐</span><b>ESCAPE DE LAS CABRAS</b><small>¡Jugar!</small></button>
+      <button class="card c-soon" data-soon="Carrera tóxica"><span class="card-emoji">🧪</span><b>CARRERA TÓXICA</b><small>Muy pronto</small></button>
+      <button class="card c-soon" data-soon="Raise The Man of the Bag"><span class="card-emoji">🍼</span><b>RAISE TMB</b><small>Muy pronto</small></button>
+      <button class="card c-soon" data-soon="Música de TMB"><span class="card-emoji">🎹</span><b>MÚSICA DE TMB</b><small>Muy pronto</small></button>
+    </div>
+    <button class="btn yellow rank-btn" id="b-ranking-suite">🏆 RANKING MUNDIAL</button>
+    <p class="yt">YouTube: @the_man_of_the_bag</p>
+  </section>
+
+  <!-- 4. Inicio de Escape de las cabras -->
+  <section id="s-escape" class="screen bg-escape">
+    <button class="icon-btn back" data-go="s-suite" aria-label="Volver">⬅</button>
+    <div class="escape-title">
+      <h1 class="title huge">ESCAPE</h1>
+      <h2 class="title green mid">DE LAS CABRAS</h2>
+      <p class="title tiny-title">The man of the bag</p>
+    </div>
+    <div class="escape-menu">
+      <button class="btn green wide" id="b-jugar">JUGAR</button>
+      <button class="btn purple wide soon" data-soon="La carrera en vivo">CARRERA EN VIVO <small>pronto</small></button>
+      <div class="row">
+        <button class="btn yellow" id="b-ranking">RANKING</button>
+        <button class="btn blue soon" data-soon="La tienda de bolsas">BOLSAS <small>pronto</small></button>
+      </div>
+      <p class="record">Tu récord: <b id="t-record">0 m</b></p>
+    </div>
+  </section>
+
+  <!-- 5. Ranking -->
+  <section id="s-ranking" class="screen bg-dark">
+    <button class="icon-btn back" id="b-rank-back" aria-label="Volver">⬅</button>
+    <h1 class="title">🏆 RANKING MUNDIAL</h1>
+    <p class="hint">Escape de las cabras · metros recorridos</p>
+    <div class="rank-wrap"><ol id="rank-list"></ol></div>
+    <p class="msg" id="rank-msg"></p>
+    <div class="me-row" id="rank-me"></div>
+  </section>
+
+  <!-- 6. Fin de partida -->
+  <section id="s-over" class="screen dim">
+    <div class="panel over">
+      <h2 class="title red" id="over-title">¡TE ATRAPARON!</h2>
+      <p class="newrec" id="over-rec">⭐ ¡NUEVO RÉCORD! ⭐</p>
+      <div class="stats">
+        <div><span>Distancia</span><b id="o-dist">0 m</b></div>
+        <div><span>Gotas</span><b id="o-gotas">0</b></div>
+        <div><span>Récord</span><b id="o-best">0 m</b></div>
+      </div>
+      <p class="msg" id="o-world"></p>
+      <div class="row">
+        <button class="btn green" id="b-otra">¡OTRA VEZ!</button>
+        <button class="btn blue" id="b-compartir">COMPARTIR</button>
+        <button class="btn gray" id="b-menu">MENÚ</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Pausa -->
+  <section id="s-pausa" class="screen dim">
+    <div class="panel">
+      <h2 class="title">PAUSA</h2>
+      <div class="col">
+        <button class="btn green" id="b-seguir">SEGUIR</button>
+        <button class="btn gray" id="b-salir">SALIR</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Ajustes -->
+  <section id="s-ajustes" class="screen dim">
+    <div class="panel">
+      <h2 class="title">AJUSTES</h2>
+      <div class="col">
+        <button class="btn blue" id="b-musica">🎵 Música: SÍ</button>
+        <button class="btn blue" id="b-sonidos">🔊 Sonidos: SÍ</button>
+        <button class="btn purple" id="b-cambiar-apodo">👤 Cambiar apodo</button>
+        <button class="btn yellow" id="b-tutorial">✋ Ver tutorial otra vez</button>
+        <button class="btn gray" id="b-ajustes-ok">LISTO</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="toast"></div>
+</div>
+
+<!-- Aviso para girar el teléfono -->
+<div id="rotar">
+  <div class="phone"><span>🐐</span></div>
+  <p>¡Gira tu teléfono!</p>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/core.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/escape.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
